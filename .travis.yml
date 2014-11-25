@@ -1,0 +1,12 @@
+# Configure the build matrix
+language: php
+php:
+  - 5.3
+before_install:
+	- sudo apt-get upgrade
+	- sudo apt-get install php5-cgi libapache2-mod-fastcgi apache2-suexec-custom
+	- sudo a2enmod actions fastcgi suexec
+	- sudo /etc/init.d/apache2 restart
+	- cat /etc/apache2/suexec/www-data
+after_script:
+	- wget -O - http://localhost/test.php
