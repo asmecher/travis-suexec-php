@@ -3,7 +3,7 @@ language: php
 php:
   - 5.3
 before_install:
-  - sudo apt-get upgrade
+  - sudo apt-get update
   - sudo apt-get install php5-cgi libapache2-mod-fastcgi apache2-suexec-custom
   - sudo a2enmod actions fastcgi suexec
   - sudo /etc/init.d/apache2 restart
