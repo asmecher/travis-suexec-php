@@ -31,6 +31,5 @@ before_install:
   - sudo /etc/init.d/apache2 restart
 
 script:
-  # Grab the test script to output the current user.
+  # Call the test script to output the current user. Should be "travis".
   - wget -O - -q http://localhost/test.php
-  - wget -O - -q http://localhost/test.php/with/path/info
