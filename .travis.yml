@@ -3,34 +3,20 @@ php:
   - 5.3
 
 before_install:
-  # Install Apache2, FastCGI, and PHP
   - sudo apt-get update
   - sudo apt-get install php5-cgi libapache2-mod-fastcgi apache2-suexec-custom apache2-mpm-prefork
 
-  # Enable the FastCGI and suEXEC modules
+  # Configure Apache/FastCGI/suPHP
   - sudo a2enmod actions fastcgi suexec
   - |
       echo "Action application/x-httpd-php /cgi-bin/php.fcgi
       SuexecUserGroup travis travis" | sudo tee /etc/apache2/sites-enabled/php-fcgi.conf
-  - cat /etc/apache2/sites-enabled/php-fcgi.conf
-
-  # Configure Apache
-  # - Enable suexec as the FastCGI wrapper (disabled by default)
   - sudo sed -i -e "s,#FastCgiWrapper /usr/lib/apache2/suexec,FastCgiWrapper /usr/lib/apache2/suexec,g" /etc/apache2/mods-enabled/fastcgi.conf
-  # - Change /var/www to the working directory in the default site config
   - sudo sed -i -e "s,/var/www,$(pwd),g" /etc/apache2/sites-available/default
-  # - Change the cgi-bin directory from /usr/lib/cgi-bin to (cwd)/cgi-bin
   - sudo sed -i -e "s,/usr/lib/cgi-bin,$(pwd)/cgi-bin,g" /etc/apache2/sites-available/default
-  # Log Apache data into the current working directory (useful)
   - sudo sed -i -e "s,\${APACHE_LOG_DIR},$(pwd),g" /etc/apache2/sites-available/default
-
-  # Configure suEXEC
-  # - Permit suEXEC to operate within the current working directory
   - sudo sed -i -e "s,/var/www,$(pwd)/,g" /etc/apache2/suexec/www-data
-  # Revoke group-write permissions from cgi-bin (suEXEC will fail otherwise)
   - sudo chmod -R g-w cgi-bin
-
-  # Restart Apache2 with the new configuration
   - sudo /etc/init.d/apache2 restart
 
 script:
