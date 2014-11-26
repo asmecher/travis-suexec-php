@@ -4,7 +4,7 @@ php:
   - 5.3
 before_install:
   - sudo apt-get update
-  - sudo apt-get install php5-cgi libapache2-mod-fastcgi apache2-suexec-custom
+  - sudo apt-get install php5-cgi libapache2-mod-fastcgi apache2-suexec-custom apache2-mpm-prefork
   - sudo a2enmod actions fastcgi suexec
   - sudo cp php-fcgi.conf /etc/apache2/sites-enabled
   - sudo /etc/init.d/apache2 restart
@@ -16,3 +16,4 @@ after_script:
   - ls /var/www
   - ls /home/travis
   - ls /etc/apache2/sites-enabled
+  - cat /etc/apache2/sites-enabled/000-default
