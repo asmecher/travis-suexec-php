@@ -28,4 +28,3 @@ before_install:
 script:
   # Call the test script to output the current user. Should be "travis".
   - wget -O - -q http://localhost/test.php
-  - sudo cat /var/log/apache2/suexec.log
