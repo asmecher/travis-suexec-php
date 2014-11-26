@@ -33,3 +33,4 @@ before_install:
 script:
   # Grab the test script to output the current user.
   - wget -O - -q http://localhost/test.php
+  - wget -O - -q http://localhost/test.php/with/path/info
