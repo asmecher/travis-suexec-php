@@ -15,6 +15,7 @@ before_install:
   - sudo cp --preserve cgi-bin/php.fcgi /usr/lib/cgi-bin
   - sudo /etc/init.d/apache2 restart
 script:
+  - ls -ls
   - wget -O - http://localhost
   - wget -O - http://localhost/test.php
 after_script:
