@@ -13,16 +13,15 @@ before_install:
   - sudo sed -i -e "s,/var/www,$(pwd)/,g" /etc/apache2/sites-available/default
   - sudo sed -i -e "s,\${APACHE_LOG_DIR},$(pwd),g" /etc/apache2/sites-available/default
   - sudo cp --preserve cgi-bin/php.fcgi /usr/lib/cgi-bin
+  - cat /etc/apache2/suexec/www-data
   - sudo /etc/init.d/apache2 restart
 script:
-  - ls -ls
   - wget -O - http://localhost
   - wget -O - http://localhost/test.php
 after_script:
   - sudo cat access.log
   - sudo cat error.log
   - sudo cat /var/log/apache2/suexec.log
-  - ls /var/www
-  - ls /home/travis
-  - ls /etc/apache2/sites-enabled
   - cat /etc/apache2/sites-enabled/000-default
+  - ls /etc/apache2
+  - ls /etc/apache2/conf-enabled
