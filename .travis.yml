@@ -3,8 +3,11 @@ language: php
 php:
   - 5.3
 before_install:
+  # Install Apache2, FastCGI, and PHP
   - sudo apt-get update
   - sudo apt-get install php5-cgi libapache2-mod-fastcgi apache2-suexec-custom apache2-mpm-prefork
+
+  # Enable the FastCGI and suEXEC modules
   - sudo a2enmod actions fastcgi suexec
   - sudo cp php-fcgi.conf /etc/apache2/sites-enabled
   - ls /etc/apache2/suexec
@@ -24,4 +27,6 @@ after_script:
   - sudo cat /var/log/apache2/suexec.log
   - cat /etc/apache2/sites-enabled/000-default
   - ls /etc/apache2
-  - ls /etc/apache2/conf-enabled
+  - ls /etc/apache2/conf.d
+  - cat /etc/apache2/conf.d/*
+  - cat /etc/apache2/httpd.conf
