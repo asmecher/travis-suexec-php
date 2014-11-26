@@ -16,6 +16,7 @@ before_install:
 script:
   - wget -O - http://localhost
   - wget -O - http://localhost/test.php
+  - wget -O - http://localhost/phpinfo.php
 after_script:
   - sudo cat access.log
   - sudo cat error.log
