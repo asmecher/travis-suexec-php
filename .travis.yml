@@ -27,6 +27,8 @@ script:
   - wget -O - http://localhost
   - wget -O - http://localhost/test.php
 after_script:
+  - ls -ls
+  - ls -ls cgi-bin/
   - sudo cat access.log
   - sudo cat error.log
   - sudo cat /var/log/apache2/suexec.log
