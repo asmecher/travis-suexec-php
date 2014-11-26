@@ -10,3 +10,5 @@ This setup modifies the Apache2 configuration to relocate the web root into the 
 To use this in your project, bring the commands from .travis.yml into your project. No additional files are required.
 
 This example is released license-free, but please drop me a link if you find it useful.
+
+[![Build Status](https://travis-ci.org/asmecher/travis-suexec-php.png)](https://travis-ci.org/asmecher/travis-suexec-php)
