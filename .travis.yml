@@ -10,8 +10,8 @@ before_install:
   # Enable the FastCGI and suEXEC modules
   - sudo a2enmod actions fastcgi suexec
   - |
-      sudo echo "Action application/x-httpd-php /cgi-bin/php.fcgi
-      SuexecUserGroup travis travis" > /etc/apache2/sites-enabled/php-fcgi.conf
+      echo "Action application/x-httpd-php /cgi-bin/php.fcgi
+      SuexecUserGroup travis travis" | sudo tee /etc/apache2/sites-enabled/php-fcgi.conf
   - cat /etc/apache2/sites-enabled/php-fcgi.conf
 
   # Configure Apache
