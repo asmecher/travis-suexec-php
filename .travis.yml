@@ -20,7 +20,7 @@ before_install:
 
   # Configure suEXEC
   - sudo sed -i -e "s,/var/www,$(pwd)/,g" /etc/apache2/suexec/www-data
-  - sudo chmod g-w cgi-bin
+  - sudo chmod -R g-w cgi-bin
 
   # Restart Apache2 with the new configuration
   - sudo /etc/init.d/apache2 restart
