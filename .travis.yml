@@ -15,8 +15,8 @@ script:
   - wget -O - http://localhost
   - wget -O - http://localhost/test.php
 after_script:
-  - sudo cat access_log
-  - sudo cat error_log
+  - sudo cat access.log
+  - sudo cat error.log
   - ls /var/www
   - ls /home/travis
   - ls /etc/apache2/sites-enabled
