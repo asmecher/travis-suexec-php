@@ -7,11 +7,12 @@ before_install:
   - sudo apt-get install php5-cgi libapache2-mod-fastcgi apache2-suexec-custom apache2-mpm-prefork
   - sudo a2enmod actions fastcgi suexec
   - sudo cp php-fcgi.conf /etc/apache2/sites-enabled
+  - ls /etc/apache2/suexec
+  - cat /etc/apache2/suexec/*
+  - sudo sed -i -e "s,/var/www,$(pwd)/,g" /etc/apache2/suexec/www-data
   - sudo sed -i -e "s,/var/www,$(pwd)/,g" /etc/apache2/sites-available/default
   - sudo sed -i -e "s,\${APACHE_LOG_DIR},$(pwd),g" /etc/apache2/sites-available/default
   - sudo cp --preserve cgi-bin/php.fcgi /usr/lib/cgi-bin
-  - ls /etc/apache2/conf-enabled
-  - cat /etc/apache2/conf-enabled/*
   - sudo /etc/init.d/apache2 restart
 script:
   - wget -O - http://localhost
