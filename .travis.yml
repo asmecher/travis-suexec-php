@@ -10,8 +10,8 @@ before_install:
   - sudo sed -i -e "s,/var/www,$(pwd)/,g" /etc/apache2/sites-available/default
   - sudo sed -i -e "s,\${APACHE_LOG_DIR},$(pwd),g" /etc/apache2/sites-available/default
   - sudo sed -i -e "s,/var/www,$(pwd)/,g" /etc/apache2/sites-enabled/php-fcgi.conf
-  - ls /usr/lib/cgi-bin
   - sudo cp cgi-bin/php.fcgi /usr/lib/cgi-bin
+  - ls -ls /usr/lib/cgi-bin
   - sudo /etc/init.d/apache2 restart
 script:
   - wget -O - http://localhost
