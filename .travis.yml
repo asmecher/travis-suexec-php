@@ -9,14 +9,19 @@ before_install:
 
   # Enable the FastCGI and suEXEC modules
   - sudo a2enmod actions fastcgi suexec
+  - sudo a2dismod actions php5-cgi
   - sudo cp php-fcgi.conf /etc/apache2/sites-enabled
-  - ls /etc/apache2/suexec
-  - cat /etc/apache2/suexec/*
-  - sudo sed -i -e "s,/var/www,$(pwd)/,g" /etc/apache2/suexec/www-data
+  # Configure Apache
   - sudo sed -i -e "s,/var/www,$(pwd)/,g" /etc/apache2/sites-available/default
   - sudo sed -i -e "s,\${APACHE_LOG_DIR},$(pwd),g" /etc/apache2/sites-available/default
+
+  # Configure suEXEC
+  - sudo sed -i -e "s,/var/www,$(pwd)/,g" /etc/apache2/suexec/www-data
+
+  # Install the FastCGI PHP wrapper
   - sudo cp --preserve cgi-bin/php.fcgi /usr/lib/cgi-bin
-  - cat /etc/apache2/suexec/www-data
+
+  # Restart Apache2 with the new configuration
   - sudo /etc/init.d/apache2 restart
 script:
   - wget -O - http://localhost
@@ -25,8 +30,5 @@ after_script:
   - sudo cat access.log
   - sudo cat error.log
   - sudo cat /var/log/apache2/suexec.log
+  - cat /etc/apache2/suexec/www-data
   - cat /etc/apache2/sites-enabled/000-default
-  - ls /etc/apache2
-  - ls /etc/apache2/conf.d
-  - cat /etc/apache2/conf.d/*
-  - cat /etc/apache2/httpd.conf
