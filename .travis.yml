@@ -8,10 +8,11 @@ before_install:
   - sudo a2enmod actions fastcgi suexec
   - sudo cp php-fcgi.conf /etc/apache2/sites-enabled
   - sudo /etc/init.d/apache2 restart
-after_script:
+script:
   - wget -O - http://localhost/test.php
-  - cat /var/log/apache2/access_log
-  - cat /var/log/apache2/error_log
+after_script:
+  - sudo cat /var/log/apache2/access_log
+  - sudo cat /var/log/apache2/error_log
   - ls /var/www
   - ls /home/travis
   - ls /etc/apache2/sites-enabled
