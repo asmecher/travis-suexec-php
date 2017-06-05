@@ -7,7 +7,9 @@ php:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install php-cgi libapache2-mod-fastcgi apache2-suexec-custom apache2-mpm-prefork
+  - sudo apt-get install libapache2-mod-fastcgi apache2-suexec-custom apache2-mpm-prefork
+  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "5." ]]; then; apt-get install php5-cgi; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then; apt-get install php7-cgi; fi
 
   # Configure Apache/FastCGI/suPHP
   - sudo a2enmod actions fastcgi suexec
