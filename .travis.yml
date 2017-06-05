@@ -9,8 +9,6 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install libapache2-mod-fastcgi apache2-suexec-custom apache2-mpm-prefork
   - if [[ ${TRAVIS_PHP_VERSION:0:2} == "5." ]]; then sudo apt-get install php5-cgi; fi
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then sudo apt-get install php7.0-cgi; fi
-  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7.1" ]]; then sudo apt-get install php7.1-cgi; fi
 
   # Configure Apache/FastCGI/suPHP
   - sudo a2enmod actions fastcgi suexec
@@ -22,7 +20,7 @@ before_install:
       echo "#!/bin/sh
       export PHP_FCGI_CHILDREN=4
       export PHP_FCGI_MAX_REQUESTS=200
-      exec /usr/bin/php-cgi" > cgi-bin/php.fcgi
+      exec ~/.phpenv/versions/$(phpenv version-name)/bin/php-cgi" > cgi-bin/php.fcgi
   - chmod -R 755 cgi-bin
   - sudo sed -i -e "s,#FastCgiWrapper /usr/lib/apache2/suexec,FastCgiWrapper /usr/lib/apache2/suexec,g" /etc/apache2/mods-enabled/fastcgi.conf
   - sudo sed -i -e "s,/var/www,$(pwd),g" /etc/apache2/sites-available/default
@@ -34,3 +32,5 @@ before_install:
 script:
   # Call the test script to output the current user. Should be "travis".
   - wget -O - -q http://localhost/test.php
+
+# ~/.phpenv/versions/$(phpenv version-name)/bin/php-cgi
