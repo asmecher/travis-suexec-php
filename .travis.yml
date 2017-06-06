@@ -20,7 +20,7 @@ before_install:
       echo "#!/bin/sh
       export PHP_FCGI_CHILDREN=4
       export PHP_FCGI_MAX_REQUESTS=200
-      exec ~/.phpenv/versions/$(php -r echo phpversion\(\);)/bin/php-cgi" > cgi-bin/php.fcgi
+      exec ~/.phpenv/versions/$(php -r echo\ phpversion\(\);)/bin/php-cgi" > cgi-bin/php.fcgi
   - chmod -R 755 cgi-bin
   - sudo sed -i -e "s,#FastCgiWrapper /usr/lib/apache2/suexec,FastCgiWrapper /usr/lib/apache2/suexec,g" /etc/apache2/mods-enabled/fastcgi.conf
   - sudo sed -i -e "s,/var/www,$(pwd),g" /etc/apache2/sites-available/default
