@@ -32,6 +32,7 @@ before_install:
 script:
   # Call the test script to output the current user. Should be "travis".
   - ls ~/.phpenv/versions
+  - php -r "echo phpinfo();"
   - find ~/.phpenv/versions -name php-cgi
   - cat cgi-bin/php.fcgi
   - wget -O - -q http://localhost/test.php
